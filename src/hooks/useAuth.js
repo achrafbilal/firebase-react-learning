@@ -33,6 +33,10 @@ export const AuthProvider = ({ children }) => {
         return firebase.auth().signInWithEmailAndPassword(email, password).then(rep => true)
 
     }
+    const signUp = (email, password) => {
+        return firebase.auth().createUserWithEmailAndPassword(email, password).then(rep => true)
+    }
+
     const signInWithEmailLink = (email, code) => {
         return firebase.auth().signInWithEmailLink(email, code).then(
             result => {

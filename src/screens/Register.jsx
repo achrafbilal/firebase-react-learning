@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../hooks/useAuth';
+import { Redirect } from 'react-router';
 
 function Copyright() {
     return (
@@ -61,7 +63,22 @@ const useStyles = makeStyles((theme) => ({
 
 function Register() {
     const classes = useStyles();
+    const [nav, setNav] = useState(null)
+    const [message, setMessage] = useState(null)
+    const { signUp } = useAuth();
+    const onSubmit = async (data) => {
+        data.preventDefault()
+        try {
+            if (await signUp(data.target.email.value, data.target.password.value))
+                setMessage("")
+            setNav(
+                <Redirect to="/" />
+            )
 
+        } catch (error) {
+            setMessage(error.message)
+        }
+    }
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />

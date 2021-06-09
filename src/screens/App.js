@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Layout from '../components/Layout'
 import Login from './Login'
 import Register from './Register'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 function App() {
   const { logout, user, } = useAuth()
