@@ -4,24 +4,18 @@ import Login from './Login'
 import Register from './Register'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import Home from './Home'
 function App() {
-  const { logout, user, } = useAuth()
-  console.log("user", user);
+  const { user, saveImage, getMessages } = useAuth()
   return (
     <Router>
       <Layout>
         {
           user &&
           <>
-            <Route path="/logout" exact >
-              {
-                "logout"
-              }
-            </Route>
+
             <Route path="/" exact >
-              <h1>
-                test
-              </h1>
+              <Home saveImage={saveImage} getMessages={getMessages} user={user} />
             </Route>
             <Route path="/login" exact >
               <Redirect to="/" />

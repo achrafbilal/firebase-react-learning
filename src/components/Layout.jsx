@@ -10,11 +10,11 @@ function Layout({ children }) {
     }
     return (
         <div className="App">
-            <div className="App">
-                <Top setLeftOpen={setLeftOpen} navigate={navigate} />
-                <Left open={leftOpen} setLeftOpen={setLeftOpen} />
-                {children}
-            </div>
+            <Top server={{
+                name: `EMSI server`
+            }} className="topbar" setLeftOpen={setLeftOpen} navigate={navigate} />
+            <Left open={leftOpen} setLeftOpen={setLeftOpen} />
+            {children}
         </div>
     )
 }

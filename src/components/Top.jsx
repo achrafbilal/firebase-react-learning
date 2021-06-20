@@ -1,6 +1,6 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { NavigateBefore } from '@material-ui/icons';
+import { } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -23,10 +23,9 @@ const useStyles = makeStyles
             }
         )
     );
-function Top({ setLeftOpen, navigate }) {
+function Top({ setLeftOpen, navigate, server }) {
     const { user, logout } = useAuth();
     const classes = useStyles();
-    console.log(user)
     return (
         <AppBar position="static">
             <Toolbar>
@@ -37,13 +36,21 @@ function Top({ setLeftOpen, navigate }) {
                     </IconButton>
                 }
                 <Typography variant="h6" className={classes.title}>
+
                     Tencord
+                </Typography>
+                <Typography variant="h6" className={classes.title}>
+
+                    {server.name}
                 </Typography>
                 {
                     user &&
                     <>
-                        <Link to="/" color="inherit" >Home</Link>
-                        <Link to="/logout" color="inherit" >Logout</Link>
+                        <span>
+                            {user.email}
+                        </span>
+                        <Link as={Button} to="/" color="inherit" >Home</Link>
+                        <Link as={Button} onClick={() => logout()} color="inherit" >Logout</Link>
                     </>
                 }
                 {
