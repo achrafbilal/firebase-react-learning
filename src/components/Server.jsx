@@ -1,36 +1,69 @@
-import { Box, Button, Grid, makeStyles, Paper } from '@material-ui/core'
-import React from 'react'
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        flex: 1,
-    },
-    container: {
-        margin: 10
-    }
-}));
-function Server({ server }) {
+import React, { useState } from 'react'
+import { Add, KeyboardArrowRight as Join, DeleteForever } from '@material-ui/icons'
+import { database } from '../hooks/useAuth'
 
-    const classes = useStyles();
-    return (
-        <div style={{ background: '#3F51B5', width: '100%', marginRight: '40px', marginLeft: '40px', marginTop: '10px', padding: '10px', }}>
-            {/* <Box display="flex" flexDirection="row" justifyContent="center" alignContent="center" alignItems="center" className={classes.container}> */}
-            <Paper style={{ width: '100%', alignContent: 'center', justifyContent: 'space-evenly', flex: 1, display: 'flex', padding: '10px', borderRadius: '40px', }}>
-                <Box flexGrow={2} style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
-                    Name : {server.name}
-                </Box>
-                <Box flexGrow={1} style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-                    Owner : {server.owner}
-                </Box>
-                <Box flexGrow={1} style={{ justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-                    <Button variant="outlined" color="default" onClick={() => alert(server.id)}>
-                        Join
-                    </Button>
-                </Box>
-            </Paper>
-            {/* </Box> */}
-        </div>
-    )
+function Server({ server, user, authorized }) {
+    const [newServerName, setNewServerName] = useState("")
+    const [create, CanCreate] = useState(authorized)
+    const addServer = () => {
+        database
+            .collection('servers')
+            .get()
+            .then(
+                (s) => {
+                    s.docs.forEach
+                        (
+                            e => {
+                                if (e.data().owner.uid === user.uid)
+                                    alert('found')
+                                return;
+                            }
+                        )
+                    database.collection('servers').add({
+                        name: newServerName,
+                        owner: database.doc('users/' + user.uid)
+                    }).then(() => CanCreate(false))
+                })
+    }
+    const deleteServer = () => {
+        database.collection('servers').doc(server.id).delete().then(() => CanCreate(true))
+    }
+    if (server)
+        return (
+            <div className="server_item_container">
+                <div className="server_item_left">
+                    {server.name}
+                </div>
+                <div className="server_item_center">
+                    {server.owner.id === user.uid && <DeleteForever onClick={() => deleteServer()} />}
+
+                </div>
+                <div className="server_item_right">
+                    <Join onClick={() => server.setServer(server)} />
+                </div>
+            </div>
+        )
+    else
+        return (
+
+            create &&
+            <>
+                <div className="server_item_container">
+
+                    <div className="server_item_left">
+                        <input type='text' value={newServerName} onChange={e => setNewServerName(e.target.value)} />
+                    </div>
+                    <div className="server_item_center">
+                        You only can create 1 server
+                    </div>
+                    <div className="server_item_right">
+                        <Add onClick={() => addServer()} />
+                    </div>
+                </div>
+            </>
+
+        )
+
 }
 
 export default Server

@@ -24,7 +24,8 @@ code {
 }
 
 .left_menu_container {
-  width: 50vw;
+  width: 30vw;
+  background-color: white;
 }
 
 .home_container {
@@ -49,6 +50,20 @@ code {
   bottom: 6vh;
   z-index: 1;
 }
+.last_message {
+  /* transition: all 0.4s ease-in-out; */
+  animation-duration: 0.5s;
+
+  /* animation-name: appear; */
+}
+@keyframes appear {
+  from {
+    margin-bottom: -300px;
+  }
+  to {
+    margin-bottom: 0px;
+  }
+}
 .home_container_message {
   margin-top: 20px;
   display: flex;
@@ -57,7 +72,7 @@ code {
   z-index: 1;
 }
 .home_container_messages_outer {
-  background-color: lightblue;
+  /* background-color: lightblue; */
   border-radius: 20px;
   height: 50px;
   padding: 10px;
@@ -74,11 +89,11 @@ code {
   z-index: 1;
 }
 .home_container_messages_inner {
-  background-color: gray;
+  /* background-color: gray; */
   border-radius: 20px;
   height: 50px;
   padding: 10px;
-  color: white;
+  color: darkslateblue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,4 +177,66 @@ header {
   outline: none;
 }
 .home_container_foot_send_form_input_image_icon {
+}
+.home_container_messages_outer_image {
+  margin-left: 40px;
+  border-radius: 30px;
+
+  max-width: 60px;
+  max-height: 60px;
+  min-height: 60px;
+  max-height: 60px;
+}
+.home_container_messages_inner_image {
+  margin-right: 40px;
+  border-radius: 30px;
+
+  max-width: 60px;
+  max-height: 60px;
+  min-height: 60px;
+  max-height: 60px;
+}
+
+.home_container_messages_inner_username {
+  color: lightseagreen;
+  font-weight: 900;
+}
+.home_container_messages_outer_username {
+  color: darkseagreen;
+  font-weight: 900;
+}
+
+.servers_list_top {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+.server_item_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+.server_item_left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.server_item_center {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.server_item_right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }

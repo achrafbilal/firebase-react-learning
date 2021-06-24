@@ -23,7 +23,8 @@ const useStyles = makeStyles
             }
         )
     );
-function Top({ setLeftOpen, navigate, server }) {
+function Top({ setLeftOpen, server }) {
+
     const { user, logout } = useAuth();
     const classes = useStyles();
     return (
@@ -36,12 +37,11 @@ function Top({ setLeftOpen, navigate, server }) {
                     </IconButton>
                 }
                 <Typography variant="h6" className={classes.title}>
-
                     Tencord
                 </Typography>
                 <Typography variant="h6" className={classes.title}>
 
-                    {server.name}
+                    {user && (server ? server.name : 'default')}
                 </Typography>
                 {
                     user &&

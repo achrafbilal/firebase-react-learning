@@ -1,78 +1,117 @@
 import React, { useEffect, useRef, useState, } from 'react'
-import FlipMove from 'react-flip-move';
+// import FlipMove from 'react-flip-move';
 import Message from '../components/Message';
 import ImageIcon from '@material-ui/icons/Image';
 import SendIcon from '@material-ui/icons/Send';
-function Home(props) {
-    const [image, setImage] = useState(null)
-    const [messages, setMessages] = useState([])
+import { database, stock } from '../hooks/useAuth'
+function Home({ server, user, username, messages }) {
     const [message, setMessage] = useState('')
-    const [cpt, setCpt] = useState(102);
-    const getMessages = () => {
-        props.getMessages("DP1k5X0gMYSb0726aDmO", messages, setMessages)
-        // let m = [];
-        // for (let index = 0; index < 100; index++) {
-        //     m.push({
-        //         id: index,
-        //         content: `Message no ${index}`,
-        //         date: `${(new Date()).toLocaleDateString()} ${(new Date()).toLocaleTimeString()}`,
-        //         sender: (Math.floor(Math.random() * 2))
-        //     })
-        //     setMessages(m);
-
-        // }
-    }
-
-    const gotop = () => {
+    const inputFile = useRef(null)
+    const send = () => {
         if (message.length < 1) {
             return;
         }
-        return;
-        const el = document.getElementById('top_messages');
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        setMessages([{
-            id: cpt,
+        const m = {
+            username: username,
             content: message,
-            date: `${(new Date()).toLocaleDateString()} ${(new Date()).toLocaleTimeString()}`,
-            sender: (Math.floor(Math.random() * 2))
-        }, ...messages]);
-        setCpt(cpt + 1)
-        setMessage('')
+            timestamp: (new Date()),
+            server: server.id,
+            type: 'message',
+            uid: user.uid
+        }
+        database
+            .collection('messages')
+            .add(m)
+        setMessage("")
+
+
+
     }
-    useEffect(() => {
-        getMessages()
-    }, [])
-    const inputFile = useRef(null)
+
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            gotop()
+            send()
         }
     }
+
     const handleImage = (ev) => {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            setImage(e.target.result);
-        };
-
-        reader.readAsDataURL(ev.target.files[0]);
-        console.log(props.saveImage(ev.target.files[0], "DP1k5X0gMYSb0726aDmO"))
+        const image = ev.target.files[0];
+        if (!image) return null;
+        const parts = image.name.split('.');
+        const name = `${user.uid}_${Date.now()}.${parts[parts.length - 1]}`;
+        const ref = stock.ref(`images/${name}`);
+        const task = ref.put(image)
+        task.on
+            (
+                'state_changed',
+                snapshot => {
+                },
+                error => {
+                    console.log(error)
+                },
+                () =>
+                    stock
+                        .ref('images')
+                        .child(name)
+                        .getDownloadURL()
+                        .then
+                        (
+                            (url) => {
+                                const obj = {
+                                    username: username,
+                                    content: url,
+                                    server: server.id,
+                                    type: 'image',
+                                    uid: user.uid,
+                                    timestamp: (new Date())
+                                }
+                                database
+                                    .collection('messages')
+                                    .add(obj)
+                            }
+                        )
+            )
     }
     return (
+
+        (user && server) &&
         <div className="home_container">
+
             <div className="home_container_messages">
-                <div id="top_messages">
-                    <img src={image} width={100} height={100} />
-                </div>
-                <FlipMove>
-                    {messages.map((m, i) => {
-                        return (
-                            <Message message={m} key={"k_" + m.id} index={i} uid={props.user.uid} />
-                        )
-                    })}
-                </FlipMove>
+                {
+                    messages.length > 0 ?
+                        <>
+                            {/* <FlipMove duration={900}>
+                                {
+                                    messages.map
+                                        (
+                                            m => {
+                                                return (
+                                                    <Message message={m} key={m.id} uid={user.uid} />
+                                                )
+                                            }
+                                        )
+                                }
+
+                            </FlipMove> */}
+                            {
+                                messages.map
+                                    (
+                                        (m, i) => {
+                                            return (
+                                                <Message message={m} key={m.id} uid={user.uid} last={i === messages.length - 1} />
+                                            )
+                                        }
+                                    )
+                            }
+                            <div id="last_message">
+                            </div>
+                        </>
+                        : <></>
+                }
+
             </div>
+
 
             <div className="home_container_foot" >
 
@@ -81,7 +120,7 @@ function Home(props) {
                         <div className="home_container_foot_send_form_input">
                             <input onKeyPress={handleKeyPress} type="text" onInput={(e) => setMessage(e.target.value)} placeholder="Entrez votre message ici et tapez Entrer ou clicker sur le bouton Envoyer " className="home_container_foot_send_form_input_element" value={message} />
                             <ImageIcon color="primary" onClick={() => inputFile.current.click()} className="home_container_foot_send_form_input_image_icon" />
-                            <SendIcon color={message.length < 1 ? 'disabled' : 'primary'} className="home_container_foot_send_form_input_send_icon" onClick={gotop} />
+                            <SendIcon color={message.length < 1 ? 'disabled' : 'primary'} className="home_container_foot_send_form_input_send_icon" onClick={send} />
                             <input type='file' id='file' onChange={handleImage} accept="image/png, image/gif, image/jpeg" ref={inputFile} style={{ display: 'none' }} />
                         </div>
                     </div>
@@ -92,6 +131,7 @@ function Home(props) {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }
