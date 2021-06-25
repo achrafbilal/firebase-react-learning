@@ -1,4 +1,4 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -28,40 +28,58 @@ function Top({ setLeftOpen, server }) {
     const { user, logout } = useAuth();
     const classes = useStyles();
     return (
-        <AppBar position="static">
-            <Toolbar>
-                {
-                    user &&
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => setLeftOpen(true)}>
-                        <MenuIcon />
-                    </IconButton>
-                }
-                <Typography variant="h6" className={classes.title}>
-                    Tencord
-                </Typography>
-                <Typography variant="h6" className={classes.title}>
+        <React.Fragment>
+            <AppBar position="static" color="secondary">
+                <Toolbar component="div" variant="dense">
+                    {
+                        user &&
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => setLeftOpen(true)}>
+                            <MenuIcon />
+                        </IconButton>
+                    }
+                    <Typography variant="h6" className={classes.title}>
+                        Tencord
+                    </Typography>
+                    <Typography variant="h6" className={classes.title}>
 
-                    {user && (server ? server.name : 'default')}
-                </Typography>
-                {
-                    user &&
-                    <>
-                        <span>
-                            {user.email}
-                        </span>
-                        <Link as={Button} to="/" color="inherit" >Home</Link>
-                        <Link as={Button} onClick={() => logout()} color="inherit" >Logout</Link>
-                    </>
-                }
-                {
-                    !user &&
-                    <>
-                        <Link to="/login" color="inherit" >Login</Link>
-                        <Link to="/register" color="inherit" >Register</Link>
-                    </>
-                }
-            </Toolbar>
-        </AppBar>
+                        {user && (server ? server.name : 'default')}
+                    </Typography>
+                    {
+                        user &&
+                        <div className="top_right_nav">
+                            <span className="top_right_nav_element">
+                                {user.email}
+                            </span>
+                            <Link to="/" color="inherit" >
+                                <span className="top_right_nav_element">
+                                    Home
+                                </span>
+                            </Link>
+                            <Link to="/logout" onClick={() => logout()} color="inherit" >
+                                <span className="top_right_nav_element">
+                                    Logout
+                                </span>
+                            </Link>
+                        </div>
+                    }
+                    {
+                        !user &&
+                        <div className="top_right_nav">
+                            <Link to="/login" color="inherit" >
+                                <span className="top_right_nav_element">
+                                    Login
+                                </span>
+                            </Link>
+                            <Link to="/register" color="inherit" >
+                                <span className="top_right_nav_element">
+                                    Register
+                                </span>
+                            </Link>
+                        </div>
+                    }
+                </Toolbar>
+            </AppBar>
+        </React.Fragment>
     )
 }
 

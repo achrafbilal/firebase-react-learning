@@ -19,17 +19,16 @@ function Left({ open, setLeftOpen, setServer, user }) {
                 }
             )
     }, [])
-    //
     return (
         <React.Fragment key={'left'}>
             <Drawer anchor={'left'} open={open} onClose={() => setLeftOpen(false)}>
-                {user &&
-                    <div className="left_menu_container" style={{ background: '#3F51B5' }}>
+                {
+                    user &&
+                    <div className="left_menu_container" style={{ background: '#000' }}>
                         <ServersList user={user} servers={servers} />
                     </div>
                 }
             </Drawer>
-
         </React.Fragment>
     )
 }

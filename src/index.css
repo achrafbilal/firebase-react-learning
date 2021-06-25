@@ -25,7 +25,7 @@ code {
 
 .left_menu_container {
   width: 30vw;
-  background-color: white;
+  background-color: black;
 }
 
 .home_container {
@@ -200,10 +200,12 @@ header {
 .home_container_messages_inner_username {
   color: lightseagreen;
   font-weight: 900;
+  font-size: larger;
 }
 .home_container_messages_outer_username {
   color: darkseagreen;
   font-weight: 900;
+  font-size: larger;
 }
 
 .servers_list_top {
@@ -221,6 +223,8 @@ header {
   align-items: center;
   justify-content: space-between;
   margin: 10px;
+  background-color: black;
+  color: white;
 }
 .server_item_left {
   flex: 1;
@@ -239,4 +243,23 @@ header {
   display: flex;
   align-items: center;
   justify-content: end;
+}
+
+.MuiPaper-root {
+  background-color: black !important;
+  /* width: 100vw; */
+  display: flex;
+}
+.top_right_nav {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top_right_nav_element {
+  text-decoration: none;
+  color: whitesmoke;
+}
+.MuiGrid-root {
+  background-color: #fff !important;
 }

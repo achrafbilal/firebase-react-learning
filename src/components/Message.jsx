@@ -3,8 +3,6 @@ import React, { forwardRef } from 'react'
 const Message = forwardRef
     (
         (props, ref) => {
-            console.log(props.last, props.message.content)
-            // if (props.last) alert(props.message.content)
             return (
                 <div className={`home_container_message ${props.last ? 'last_message' : ''}`} ref={ref}>
                     {props.uid !== props.message.uid &&

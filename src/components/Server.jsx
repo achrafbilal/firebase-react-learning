@@ -4,29 +4,21 @@ import { database } from '../hooks/useAuth'
 
 function Server({ server, user, authorized }) {
     const [newServerName, setNewServerName] = useState("")
-    const [create, CanCreate] = useState(authorized)
+
     const addServer = () => {
         database
             .collection('servers')
             .get()
             .then(
                 (s) => {
-                    s.docs.forEach
-                        (
-                            e => {
-                                if (e.data().owner.uid === user.uid)
-                                    alert('found')
-                                return;
-                            }
-                        )
                     database.collection('servers').add({
                         name: newServerName,
                         owner: database.doc('users/' + user.uid)
-                    }).then(() => CanCreate(false))
+                    })
                 })
     }
     const deleteServer = () => {
-        database.collection('servers').doc(server.id).delete().then(() => CanCreate(true))
+        database.collection('servers').doc(server.id).delete()
     }
     if (server)
         return (
@@ -46,7 +38,7 @@ function Server({ server, user, authorized }) {
     else
         return (
 
-            create &&
+            authorized &&
             <>
                 <div className="server_item_container">
 

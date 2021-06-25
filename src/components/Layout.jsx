@@ -4,14 +4,17 @@ import "../css/layout.css"
 import Left from './Left'
 import Top from './Top'
 function Layout({ children, server, setServer, user, servers }) {
-    const [leftOpen, setLeftOpen] = useState(true);
+    const [leftOpen, setLeftOpen] = useState(false);
     const navigate = (to) => {
         alert(to)
     }
     return (
         <div className="App">
             <Top server={server} className="topbar" setLeftOpen={setLeftOpen} navigate={navigate} />
-            <Left open={leftOpen} setLeftOpen={setLeftOpen} setServer={setServer} user={user} servers={servers} />
+            <Left open={leftOpen} setLeftOpen={setLeftOpen} setServer={(a) => {
+                setLeftOpen(false)
+                setServer(a)
+            }} user={user} servers={servers} />
             {children}
         </div>
     )

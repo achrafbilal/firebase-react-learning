@@ -9,10 +9,9 @@ function App() {
   const { user } = useAuth()
   const [server, changeServer] = useState(null)
   const [messages, setMessages] = useState([])
-  const [username, setUsername] = useState('aaa')
+  const [username, setUsername] = useState()
   const getMessages = (id) => {
-    console.log('called => ' + id)
-    if (id)
+    if (id && user)
       database
         .collection('messages')
         .orderBy('timestamp', 'asc')
@@ -21,22 +20,26 @@ function App() {
           s => {
             let a = s.docs.filter(e => e.data().server === id)
             let m = a.map(e => ({ id: e.id, ...e.data() }))
-
             setMessages(m)
-            console.log(m.length, messages.length)
           }
         )
   }
-  useEffect(() => { if (messages.length > 0) document.getElementById('last_message').scrollIntoView({ behavior: 'smooth', block: 'center' }) }, [messages])
-  useEffect(() => {
-    if (!username) {
-      setUsername(prompt('Choose a username'))
-    }
-  }, [server])
+  useEffect(() => { if (messages.length > 0 && username && user) document.getElementById('last_message').scrollIntoView({ behavior: 'smooth', block: 'center' }) }, [messages])
+  // useEffect(() => {
+  //   if (!username && user) {
+  //     setUsername(prompt('Choose a username'))
+  //   }
+  // }, [server])
 
   const setServer = (newServer) => {
-    getMessages(newServer.id)
-    changeServer(newServer)
+
+    if (!username && user) {
+      setUsername(prompt('Choose a username'))
+      getMessages(newServer.id)
+      changeServer(newServer)
+    }
+    else alert('login')
+
   }
   return (
     <Router>
@@ -45,7 +48,10 @@ function App() {
           user &&
           <>
             <Route path="/" exact >
-              <Home user={user} server={server} username={username} messages={messages} />
+              {
+                username &&
+                <Home user={user} server={server} username={username} messages={messages} />
+              }
             </Route>
             <Route path="/login" exact >
               <Redirect to="/" />
