@@ -3,17 +3,18 @@ import React, { useState } from 'react'
 import "../css/layout.css"
 import Left from './Left'
 import Top from './Top'
-function Layout({ children, server, setServer, user, servers }) {
+function Layout({ children, server, setServer, user, servers, username, setUsername }) {
     const [leftOpen, setLeftOpen] = useState(false);
     const navigate = (to) => {
-        alert(to)
+        console.log(to)
     }
     return (
         <div className="App">
-            <Top server={server} className="topbar" setLeftOpen={setLeftOpen} navigate={navigate} />
+            <Top server={server} className="topbar" setLeftOpen={setLeftOpen} navigate={navigate} username={username} setUsername={setUsername} />
             <Left open={leftOpen} setLeftOpen={setLeftOpen} setServer={(a) => {
-                setLeftOpen(false)
                 setServer(a)
+
+                setLeftOpen(false)
             }} user={user} servers={servers} />
             {children}
         </div>

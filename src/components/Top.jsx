@@ -23,7 +23,7 @@ const useStyles = makeStyles
             }
         )
     );
-function Top({ setLeftOpen, server }) {
+function Top({ setLeftOpen, server, username, setUsername }) {
 
     const { user, logout } = useAuth();
     const classes = useStyles();
@@ -43,6 +43,14 @@ function Top({ setLeftOpen, server }) {
                     <Typography variant="h6" className={classes.title}>
 
                         {user && (server ? server.name : 'default')}
+                    </Typography>
+                    <Typography variant="h6" className={classes.title} onClick={() => {
+                        let a = prompt('Specify your username')
+
+                        setUsername(a.length > 1 ? a : "user")
+                    }}>
+
+                        {user && (username ? username : 'user')}
                     </Typography>
                     {
                         user &&

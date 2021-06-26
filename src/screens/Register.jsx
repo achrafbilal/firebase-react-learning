@@ -3,9 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import { Link as MLink } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -13,15 +11,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../hooks/useAuth';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://localhost:3000">
+            <MLink color="inherit" href="https://localhost:3000">
                 Tencord
-            </Link>
+            </MLink>
             {' '}
             {new Date().getFullYear()}
             {'.'}
@@ -63,17 +61,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Register() {
     const classes = useStyles();
-    const [nav, setNav] = useState(null)
+    // const [nav, setNav] = useState(null)
     const [message, setMessage] = useState(null)
     const { signUp } = useAuth();
     const onSubmit = async (data) => {
         data.preventDefault()
         try {
-            if (await signUp(data.target.email.value, data.target.password.value))
-                setMessage("")
-            setNav(
-                <Redirect to="/" />
-            )
+            if (data.target.password.value === data.target.password_conf.value) {
+                if (await signUp(data.target.email.value, data.target.password.value))
+                    setMessage("")
+                // setNav(
+                //     <Redirect to="/" />
+                // )
+            } else setMessage("Passwords are not the same")
 
         } catch (error) {
             setMessage(error.message)
@@ -91,31 +91,9 @@ function Register() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate onSubmit={onSubmit}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="fname"
-                                    name="firstName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                />
-                            </Grid>
+
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
@@ -136,15 +114,20 @@ function Register() {
                                     label="Password"
                                     type="password"
                                     id="password"
-                                    autoComplete="current-password"
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password_conf"
+                                    label="Password Confirmation"
+                                    type="password"
+                                    id="password_conf"
                                 />
                             </Grid>
+
                         </Grid>
                         <Button
                             type="submit"
@@ -154,15 +137,18 @@ function Register() {
                             className={classes.submit}
                         >
                             Sign Up
-          </Button>
-                        <Grid container justify="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    Already have an account? Sign in
-              </Link>
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                {message}
                             </Grid>
+
                         </Grid>
-                    </form> </div>
+                        <Box mt={5}>
+                            <Copyright />
+                        </Box>
+                    </form>
+                </div>
             </Grid>
         </Grid>
     );

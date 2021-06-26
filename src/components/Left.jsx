@@ -25,7 +25,7 @@ function Left({ open, setLeftOpen, setServer, user }) {
                 {
                     user &&
                     <div className="left_menu_container" style={{ background: '#000' }}>
-                        <ServersList user={user} servers={servers} />
+                        <ServersList user={user} servers={servers}  />
                     </div>
                 }
             </Drawer>

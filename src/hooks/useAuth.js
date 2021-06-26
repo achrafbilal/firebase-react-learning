@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import firebase from 'firebase/app';
-import auth from 'firebase/auth';
-import storage from 'firebase/storage';
-import firestore from 'firebase/firestore';
-//import storage from 'firebase/storage';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/firestore';
+
 
 
 

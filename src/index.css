@@ -69,6 +69,7 @@ code {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  height: 100%;
   z-index: 1;
 }
 .home_container_messages_outer {
@@ -180,21 +181,23 @@ header {
 }
 .home_container_messages_outer_image {
   margin-left: 40px;
-  border-radius: 30px;
-
-  max-width: 60px;
+  border-radius: 10px;
+  max-height: 600px;
+  max-width: 300px;
+  /* max-width: 60px;
   max-height: 60px;
   min-height: 60px;
-  max-height: 60px;
+  max-height: 60px; */
 }
 .home_container_messages_inner_image {
   margin-right: 40px;
-  border-radius: 30px;
-
-  max-width: 60px;
+  border-radius: 10px;
+  max-height: 600px;
+  max-width: 300px;
+  /* max-width: 60px;
   max-height: 60px;
   min-height: 60px;
-  max-height: 60px;
+  max-height: 60px; */
 }
 
 .home_container_messages_inner_username {
@@ -262,4 +265,17 @@ header {
 }
 .MuiGrid-root {
   background-color: #fff !important;
+}
+.home_modal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home_modal_image {
+  max-width: 100%;
+  max-height: 80%;
+  height: auto;
+  width: auto;
 }

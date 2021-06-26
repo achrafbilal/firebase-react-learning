@@ -4,9 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -19,7 +17,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://localhost:3000">
+            <Link to="/" color="inherit" >
                 Tencord
             </Link>
             {' '}
@@ -70,10 +68,10 @@ function Login() {
         data.preventDefault()
         try {
             if (await signIn(data.target.email.value, data.target.password.value))
-                setMessage("")
-            setNav(
-                <Redirect to="/" />
-            )
+
+                setNav(
+                    <Redirect to="/" />
+                )
 
         } catch (error) {
             setMessage(error.message)
@@ -128,11 +126,7 @@ function Login() {
                             <Grid item xs>
                                 {message}
                             </Grid>
-                            <Grid item>
-                                <Link to="/register" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
+
                         </Grid>
                         <Box mt={5}>
                             <Copyright />

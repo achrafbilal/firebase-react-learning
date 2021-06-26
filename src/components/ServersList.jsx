@@ -12,16 +12,16 @@ function ServersList({ user, servers }) {
                 setCanAdd(false)
                 return;
             }
-        })
+        }, [servers])
     })
     return (
         <div >
             <List dense >
-                <Server user={user} key={"id_new"} server={null} authorized={canAdd} />
+                <Server user={user} key={"id_new"} server={null} authorized={canAdd} setCanAdd={setCanAdd} />
                 {
                     servers.map
                         (
-                            e => <Server user={user} key={e.id} server={e} />
+                            e => <Server user={user} key={e.id} server={e} setCanAdd={setCanAdd} />
                         )
                 }
             </List>
