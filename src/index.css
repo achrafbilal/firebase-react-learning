@@ -245,7 +245,8 @@ header {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
+  padding-right: 5px;
 }
 
 .MuiPaper-root {
@@ -254,7 +255,21 @@ header {
   display: flex;
 }
 .top_right_nav {
-  width: 50%;
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  left: 0;
+}
+.top_right_nav_not_auth {
+  margin-left: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top_left_nav {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -262,6 +277,16 @@ header {
 .top_right_nav_element {
   text-decoration: none;
   color: whitesmoke;
+  cursor: pointer;
+}
+.top_right_nav_element:visited {
+  text-decoration: none;
+  color: whitesmoke;
+}
+a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 .MuiGrid-root {
   background-color: #fff !important;
@@ -278,4 +303,34 @@ header {
   max-height: 80%;
   height: auto;
   width: auto;
+}
+/* .dark {
+  background-color: black;
+  color: whitesmoke;
+}
+.light {
+  background-color: whitesmoke;
+  color: black;
+} */
+.home_container_2 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  animation-name: home2Animation;
+  animation-duration: 8s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+}
+@keyframes home2Animation {
+  from {
+    background-color: aliceblue;
+    color: black;
+  }
+  to {
+    background-color: black;
+    color: aliceblue;
+  }
 }

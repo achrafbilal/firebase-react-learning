@@ -10,6 +10,7 @@ function App() {
   const [server, changeServer] = useState(null)
   const [messages, setMessages] = useState([])
   const [username, setUsername] = useState("user")
+  const [dark, setDark] = useState(false)
   const getMessages = (id) => {
     if (id && user)
       database
@@ -52,14 +53,14 @@ function App() {
   return (
     <Router>
       <div >
-        <Layout user={user} setServer={setServer} server={server} username={username} setUsername={setUsername}  >
+        <Layout user={user} setServer={setServer} server={server} username={username} toggleDark={() => setDark(!dark)} setUsername={setUsername}   >
           {
             user &&
             <>
               <Route path="/" exact >
                 {
                   username &&
-                  <Home user={user} server={server} username={username} messages={messages} />
+                  <Home user={user} server={server} username={username} messages={messages} dark={dark} />
 
                 }
               </Route>

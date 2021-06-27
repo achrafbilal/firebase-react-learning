@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { Link as MLink } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -11,16 +10,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../hooks/useAuth';
-// import { Redirect } from 'react-router';
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <MLink color="inherit" href="https://localhost:3000">
-                Tencord
-            </MLink>
-            {' '}
+            {'Copyright © Tencord '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -29,7 +23,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '91vh',
+        height: '93vh',
     },
     image: {
         backgroundImage: 'url(https://source.unsplash.com/random)',

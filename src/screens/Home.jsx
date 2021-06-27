@@ -5,7 +5,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import SendIcon from '@material-ui/icons/Send';
 import { database, stock } from '../hooks/useAuth'
 import { Modal } from '@material-ui/core';
-function Home({ server, user, username, messages }) {
+import { Menu } from '@material-ui/icons'
+function Home({ server, user, username, messages, dark, }) {
     const [imageOpen, setImageOpen] = useState(false)
     const [image, setImage] = useState(null)
     const [message, setMessage] = useState('')
@@ -47,8 +48,7 @@ function Home({ server, user, username, messages }) {
         task.on
             (
                 'state_changed',
-                snapshot => {
-                },
+                null,
                 error => {
                     console.log(error)
                 },
@@ -85,9 +85,9 @@ function Home({ server, user, username, messages }) {
         (user) ?
             (
                 server ? (
-                    <div className="home_container">
+                    <div className={`home_container ${dark ? 'dark' : 'light'}`}>
 
-                        <div className="home_container_messages">
+                        <div className={`home_container_messages ${dark ? 'dark' : 'light'}`}>
                             {
                                 messages.length > 0 ?
                                     <>
@@ -110,13 +110,11 @@ function Home({ server, user, username, messages }) {
 
                         </div>
                         <Modal
-                            className="home_modal"
+                            className={`home_modal ${dark ? 'dark' : 'light'}`}
                             open={imageOpen}
                             onClose={imageClosed}
-                            aria-labelledby="simple-modal-title"
-                            aria-describedby="simple-modal-description"
                         >
-                            <img className="home_modal_image" height={70} src={image} alt="img from server" />
+                            <img className="home_modal_image" src={image} alt="img from server" />
                         </Modal>
 
                         <div className="home_container_foot" >
@@ -133,12 +131,15 @@ function Home({ server, user, username, messages }) {
                             </div>
                         </div>
 
-                    </div>) : <>
-                    Choose server
-                </>
-            ) : <>
+                    </div>) :
+                    <div className="home_container_2">
+                        Choose server
+                        <pre>    </pre>
+                        <Menu className='MuiIcon-fontSizeLarge' style={{ fontSize: '40px' }} />
+                    </div>
+            ) : <div className="home_container_2">
                 Problem with Auth
-            </>
+            </div>
     )
 }
 

@@ -3,21 +3,16 @@ import { Add, KeyboardArrowRight as Join, DeleteForever, VpnKey } from '@materia
 import { database } from '../hooks/useAuth'
 
 
-function Server({ server, user, authorized, setCanAdd }) {
+function Server({ server, user, authorized, setCanAdd, exist }) {
     const [newServerName, setNewServerName] = useState("")
 
     const addServer = () => {
-        database
-            .collection('servers')
-            .get()
-            .then(
-                (s) => {
-                    database.collection('servers').add({
-                        name: newServerName,
-                        owner: database.doc('users/' + user.uid),
-                        password: ''
-                    })
-                })
+        if (!exist(newServerName))
+            database.collection('servers').add({
+                name: newServerName,
+                owner: database.doc('users/' + user.uid),
+                password: ''
+            })
     }
     const deleteServer = () => {
         database.collection('servers').doc(server.id).delete()
@@ -69,10 +64,15 @@ function Server({ server, user, authorized, setCanAdd }) {
                         <input type='text' value={newServerName} onChange={e => setNewServerName(e.target.value)} />
                     </div>
                     <div className="server_item_center">
-                        You only can create 1 server
+                        1 server left
                     </div>
                     <div className="server_item_right">
-                        <Add onClick={() => addServer()} />
+                        <Add onClick={() => {
+                            if (newServerName.length > 0 && newServerName[0] !== ' ') {
+                                addServer()
+                            }
+                            else alert("The server's name must start with a character")
+                        }} />
                     </div>
                 </div>
             </>

@@ -3,7 +3,7 @@ import { List } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Server from './Server';
 
-function ServersList({ user, servers }) {
+function ServersList({ user, servers, exist }) {
     const [canAdd, setCanAdd] = useState(true)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ function ServersList({ user, servers }) {
     return (
         <div >
             <List dense >
-                <Server user={user} key={"id_new"} server={null} authorized={canAdd} setCanAdd={setCanAdd} />
+                <Server user={user} key={"id_new"} server={null} authorized={canAdd} setCanAdd={setCanAdd} exist={exist} />
                 {
                     servers.map
                         (

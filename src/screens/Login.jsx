@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -13,51 +12,45 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link to="/" color="inherit" >
-                Tencord
-            </Link>
-            {' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        height: '91vh',
-        background: '#fff'
-    },
-    image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
-    paper: {
-        margin: theme.spacing(8, 4),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+
+const useStyles = makeStyles
+    (
+        (theme) =>
+        (
+            {
+                root: {
+                    height: '93vh',
+                },
+                image: {
+                    backgroundImage: 'url(https://source.unsplash.com/random)',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundColor:
+                        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                },
+                paper: {
+                    margin: theme.spacing(8, 4),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                },
+                avatar: {
+                    margin: theme.spacing(1),
+                    backgroundColor: theme.palette.secondary.main,
+                },
+                form: {
+                    width: '100%', // Fix IE 11 issue.
+                    marginTop: theme.spacing(1),
+                },
+                submit: {
+                    margin: theme.spacing(3, 0, 2),
+                },
+
+            }
+        )
+    );
 
 function Login() {
     const [nav, setNav] = useState(null)
@@ -68,14 +61,21 @@ function Login() {
         data.preventDefault()
         try {
             if (await signIn(data.target.email.value, data.target.password.value))
-
                 setNav(
                     <Redirect to="/" />
                 )
-
         } catch (error) {
             setMessage(error.message)
         }
+    }
+    function Copyright() {
+        return (
+            <Typography variant="body2" color="textSecondary" align="center">
+                {'Copyright © Tencord '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
+        );
     }
     return (
         <Grid container component="main" className={classes.root}>
