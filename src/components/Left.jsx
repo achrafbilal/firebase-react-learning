@@ -26,21 +26,25 @@ function Left({ open, setLeftOpen, setServer, server, user }) {
             )
     }, [])
     useEffect(() => {
+        let flag = false
         if (server) {
             servers.forEach
                 (
                     e => {
                         if (e.id === server.id) {
+                            flag = true
                             if (server.password !== e.password) {
                                 server.setServer(null)
                                 alert('Password changed')
                             }
-                            return;
                         }
-                        server.setServer(null)
-                        alert('Server deleted')
                     }
                 )
+
+            if (!flag) {
+                server.setServer(null)
+                alert('Server deleted')
+            }
 
         }
     }, [servers])
