@@ -60,10 +60,9 @@ function Login() {
     const onSubmit = async (data) => {
         data.preventDefault()
         try {
-            if (await signIn(data.target.email.value, data.target.password.value))
-                setNav(
-                    <Redirect to="/" />
-                )
+            if (await signIn(data.target.email.value, data.target.password.value)) {
+                window.location.href = "/"
+            }
         } catch (error) {
             setMessage(error.message)
         }
