@@ -24,13 +24,17 @@ const useStyles = makeStyles
                     justifyContent: 'center',
                     alignItems: 'center'
                 },
-                titleClikable: {
-                    cursor: 'pointer'
+                titleClickable: {
+                    cursor: 'pointer',
+                    flexGrow: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }
             }
         )
     );
-function Top({ setLeftOpen, server, username, setUsername, toggleDark }) {
+function Top({ setLeftOpen, server, username, setUsername }) {
 
     const { user, logout } = useAuth();
     const classes = useStyles();
@@ -57,7 +61,7 @@ function Top({ setLeftOpen, server, username, setUsername, toggleDark }) {
                                     )
                                 }
                             </Typography>
-                            <Typography variant="h6" className={[classes.title, classes.titleClikable]} onClick=
+                            <Typography variant="h6" className={classes.titleClickable} onClick=
                                 {
                                     () => {
                                         let a = prompt('Specify your username')
