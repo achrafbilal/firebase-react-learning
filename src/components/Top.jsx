@@ -1,6 +1,6 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { Dns, Person, Mail, Home, ExitToApp } from '@material-ui/icons';
+import { Dns, Person, Mail, ExitToApp } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -77,13 +77,7 @@ function Top({ setLeftOpen, server, username, setUsername }) {
                             </Typography>
 
 
-                            {/* <Typography variant="h6" className={classes.title}>
-                                <Link to="/" color="inherit" >
-                                    <span className="top_right_nav_element">
-                                        <Home />
-                                    </span>
-                                </Link>
-                            </Typography> */}
+
                             <Typography variant="h6" className={classes.title}>
                                 <Link to="/logout" onClick={() => logout()} color="inherit" >
                                     <span className="top_right_nav_element">

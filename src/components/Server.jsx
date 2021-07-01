@@ -23,7 +23,6 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
     const lockServer = () => {
         database.collection('servers').doc(server.id).set({ name: server.name, owner: server.owner, password: prompt('Specify the new password') })
         server.setServer(null)
-        console.log('server locked')
     }
     const joinServer = () => {
         if (server.password.length > 0) {
