@@ -209,6 +209,7 @@ header {
   color: darkseagreen;
   font-weight: 900;
   font-size: larger;
+  margin-right: 10px;
 }
 
 .servers_list_top {

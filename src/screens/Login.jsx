@@ -53,7 +53,7 @@ const useStyles = makeStyles
     );
 
 function Login() {
-    const [nav, setNav] = useState(null)
+    // const [nav, setNav] = useState(null)
     const [message, setMessage] = useState(null)
     const classes = useStyles();
     const { signIn } = useAuth();
@@ -78,7 +78,7 @@ function Login() {
     }
     return (
         <Grid container component="main" className={classes.root}>
-            {nav}
+            {/* {nav} */}
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

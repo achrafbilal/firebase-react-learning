@@ -13,7 +13,7 @@ const Message = forwardRef
                     {props.uid !== props.message.uid &&
                         (
                             <div className="home_container_messages_outer">
-                                <p className='home_container_messages_outer_username'> {props.message.username} :  </p>
+                                <p className='home_container_messages_outer_username'>{props.message.username} :   </p>
                                 <p>
                                     {
                                         props.message.type === "image" ?
