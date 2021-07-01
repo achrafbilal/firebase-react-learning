@@ -221,7 +221,7 @@ header {
   background-color: transparent;
 }
 .server_item_container {
-  width: 100%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -229,24 +229,27 @@ header {
   background-color: black;
   color: white;
 }
+.server_item {
+  display: flex;
+  width: 100%;
+}
 .server_item_left {
   flex: 1;
-  display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 .server_item_center {
   flex: 2;
-  display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .server_item_right {
   flex: 1;
-  display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .MuiPaper-root {

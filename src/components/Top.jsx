@@ -16,6 +16,7 @@ const useStyles = makeStyles
                 },
                 menuButton: {
                     marginRight: theme.spacing(2),
+                    cursor: 'pointer'
                 },
                 title: {
                     flexGrow: 1,
@@ -23,6 +24,9 @@ const useStyles = makeStyles
                     justifyContent: 'center',
                     alignItems: 'center'
                 },
+                titleClikable: {
+                    cursor: 'pointer'
+                }
             }
         )
     );
@@ -53,7 +57,7 @@ function Top({ setLeftOpen, server, username, setUsername, toggleDark }) {
                                     )
                                 }
                             </Typography>
-                            <Typography variant="h6" className={classes.title} onClick=
+                            <Typography variant="h6" className={[classes.title, classes.titleClikable]} onClick=
                                 {
                                     () => {
                                         let a = prompt('Specify your username')
@@ -69,13 +73,13 @@ function Top({ setLeftOpen, server, username, setUsername, toggleDark }) {
                             </Typography>
 
 
-                            <Typography variant="h6" className={classes.title}>
+                            {/* <Typography variant="h6" className={classes.title}>
                                 <Link to="/" color="inherit" >
                                     <span className="top_right_nav_element">
                                         <Home />
                                     </span>
                                 </Link>
-                            </Typography>
+                            </Typography> */}
                             <Typography variant="h6" className={classes.title}>
                                 <Link to="/logout" onClick={() => logout()} color="inherit" >
                                     <span className="top_right_nav_element">

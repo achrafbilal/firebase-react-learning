@@ -11,11 +11,13 @@ function Layout({ children, server, setServer, user, servers, username, setUsern
     return (
         <div className="App">
             <Top server={server} className="topbar" toggleDark={toggleDark} setLeftOpen={setLeftOpen} navigate={navigate} username={username} setUsername={setUsername} />
-            <Left open={leftOpen} setLeftOpen={setLeftOpen} setServer={(a) => {
-                setServer(a)
-
-                setLeftOpen(false)
-            }} user={user} servers={servers} />
+            <Left open={leftOpen} setLeftOpen={setLeftOpen} server={server} setServer=
+                {
+                    (a) => {
+                        setServer(a)
+                        setLeftOpen(false)
+                    }
+                } user={user} servers={servers} />
             {children}
         </div>
     )

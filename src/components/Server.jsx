@@ -21,9 +21,9 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
 
     }
     const lockServer = () => {
-        console.log(server);
         database.collection('servers').doc(server.id).set({ name: server.name, owner: server.owner, password: prompt('Specify the new password') })
         server.setServer(null)
+        console.log('server locked')
     }
     const joinServer = () => {
         if (server.password.length > 0) {
@@ -37,19 +37,19 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
     if (server)
         return (
             <div className="server_item_container">
-                <div className="server_item_left">
+                <div className="server_item_left server_item">
                     {server.name}
                 </div>
-                <div className="server_item_center">
-                    {server.owner.id === user.uid && <DeleteForever onClick={() => deleteServer()} />}
+                <div className="server_item_center server_item">
+                    {server.owner.id === user.uid && <DeleteForever onClick={deleteServer} />}
 
 
                 </div>
-                <div className="server_item_center">
-                    {server.owner.id === user.uid && <VpnKey onClick={() => lockServer()} />}
+                <div className="server_item_center server_item">
+                    {server.owner.id === user.uid && <VpnKey onClick={lockServer} />}
                 </div>
-                <div className="server_item_right">
-                    <Join onClick={() => joinServer()} />
+                <div className="server_item_right server_item">
+                    <Join onClick={joinServer} />
                 </div>
             </div>
         )
@@ -60,13 +60,13 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
             <>
                 <div className="server_item_container">
 
-                    <div className="server_item_left">
+                    <div className="server_item_left server_item">
                         <input type='text' value={newServerName} onChange={e => setNewServerName(e.target.value)} />
                     </div>
-                    <div className="server_item_center">
+                    <div className="server_item_center server_item">
                         1 server left
                     </div>
-                    <div className="server_item_right">
+                    <div className="server_item_right server_item">
                         <Add onClick={() => {
                             if (newServerName.length > 0 && newServerName[0] !== ' ') {
                                 addServer()
