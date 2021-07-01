@@ -8,11 +8,15 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
 
     const addServer = () => {
         if (!exist(newServerName))
-            database.collection('servers').add({
-                name: newServerName,
-                owner: database.doc('users/' + user.uid),
-                password: ''
-            })
+            database.collection('servers').add
+                (
+                    {
+                        name: newServerName,
+                        owner: database.doc('users/' + user.uid),
+                        password: "",
+                        locked: false
+                    }
+                )
     }
     const deleteServer = () => {
         database.collection('servers').doc(server.id).delete()
@@ -21,11 +25,12 @@ function Server({ server, user, authorized, setCanAdd, exist }) {
 
     }
     const lockServer = () => {
-        database.collection('servers').doc(server.id).set({ name: server.name, owner: server.owner, password: prompt('Specify the new password') })
+        let password = prompt('Specify the new password')
+        database.collection('servers').doc(server.id).set({ name: server.name, owner: server.owner, password: password, locked: password.length > 0 })
         server.setServer(null)
     }
     const joinServer = () => {
-        if (server.password.length > 0) {
+        if (server.locked) {
             if (prompt('Password : ') === server.password) {
                 server.setServer(server)
             }
